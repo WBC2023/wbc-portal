@@ -1,0 +1,7 @@
+{
+  "name": "Wealth Build Consulting - Insurance Portal",
+  "description": "A comprehensive customer portal for Wealth Build Consulting, providing claim requirements, service request guides, and eConnect user documentation.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
