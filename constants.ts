@@ -6,7 +6,7 @@ export const COMPANY_INFO = {
   address: "1-2-8 MEDAN ANGSANA 3, BANDAR BARU AYER ITAM, 11500 AYER ITAM, PULAU PINANG",
   email: "wbca2023@gmail.com",
   phone: "04-2411882",
-  operatingHours: "Monday - Friday: 9:00 AM - 5:30 PM"
+  operatingHours: "Monday - Friday: 8:30 AM - 5:30 PM"
 };
 
 export const FAQ_DATA: FAQItem[] = [
