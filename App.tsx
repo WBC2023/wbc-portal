@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AppSection } from './types';
-import { Layout } from './components/Layout';
-import { Chatbot } from './components/Chatbot';
+import { Layout } from './Layout';
+import { Chatbot } from './Chatbot';
 import { 
   CLAIM_REQUIREMENTS, 
   SERVICE_FORMS, 
