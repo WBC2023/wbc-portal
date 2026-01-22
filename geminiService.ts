@@ -6,10 +6,8 @@ const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
 export async function askInsuranceAssistant(query: string) {
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: query,
-      config: {
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash-preview',
         systemInstruction: `
           You are a professional customer service assistant for Wealth Build Consulting, an insurance consulting agency.
           Company Information:
@@ -30,19 +28,17 @@ export async function askInsuranceAssistant(query: string) {
           - If user needs a form, mention it can be found in the "Download Centre".
           - Do not provide financial advice, only administrative guidance.
         `,
-        tools: [{ googleSearch: {} }],
-      },
+       
+   const result = await model.generateContent({
+      contents: [{ role: 'user', parts: [{ text: query }] }],
+      tools: [{ googleSearch: {} }],
     });
 
-    return {
-      text: response.text || "I'm sorry, I couldn't process that request.",
-      sources: response.candidates?.[0]?.groundingMetadata?.groundingChunks || []
-    };
+      const response = await result.response;
+    return response.text();
+
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return {
-      text: "I am having trouble connecting to my knowledge base right now. Please try again later or contact us directly.",
-      sources: []
-    };
+    throw error;
   }
 }
