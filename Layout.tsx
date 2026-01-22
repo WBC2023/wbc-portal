@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { AppSection } from './types';
-import { COMPANY_INFO } from './constants';
+import { AppSection } from '../types';
+import { COMPANY_INFO } from '../constants';
 
 interface LayoutProps {
   children: React.ReactNode;
