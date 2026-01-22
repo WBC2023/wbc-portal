@@ -6,18 +6,23 @@ const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 export async function askInsuranceAssistant(query: string) {
   try {
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash" 
+      model: "gemini-1.5-flash",
+      systemInstruction: `You are a professional insurance assistant for ${COMPANY_INFO.name}. 
+      Your goals:
+      1. Help users understand insurance policies.
+      2. Provide info about ${COMPANY_INFO.address}.
+      3. Maintain a helpful and professional tone.
+      
+      Constraints:
+      - Do not provide legal advice.
+      - Refer complex claims to ${COMPANY_INFO.phone}.` 
     });
 
-    const fullPrompt = `You are a professional assistant for ${COMPANY_INFO.name}. 
-    Company Address: ${COMPANY_INFO.address}.
-    User Query: ${query}`;
-
-    const result = await model.generateContent(fullPrompt);
+    const result = await model.generateContent(query);
     const response = await result.response;
     return response.text();
   } catch (error) {
-    console.error("Gemini Assistant Error:", error);
-    return "抱歉，助理目前无法连接，请检查配置。";
+    console.error("Gemini Error:", error);
+    return "助理目前无法回答，请检查 API 配置或网络。";
   }
 }
