@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { askInsuranceAssistant } from './services/geminiService';
+import { askInsuranceAssistant } from '.geminiService';
 
 export const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
