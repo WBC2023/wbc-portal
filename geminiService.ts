@@ -1,31 +1,31 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { COMPANY_INFO } from "./constants";
 
-const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
 export async function askInsuranceAssistant(query: string) {
+  if (!apiKey) {
+    console.error("DEBUG: VITE_GEMINI_API_KEY IS MISSING");
+    return "系统错误：Vercel 环境变量未读取到，请确认变量名以 VITE_ 开头。";
+  }
+
+  const genAI = new GoogleGenerativeAI(apiKey);
+
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-
-    const combinedPrompt = `You are a professional customer service assistant for Wealth Build Consulting.
-      Company Info:
-      Name: ${COMPANY_INFO.name}
-      Address: ${COMPANY_INFO.address}
-      Email: ${COMPANY_INFO.email}
-      Phone: ${COMPANY_INFO.phone}
-      
-      Your Goals:
-      - Help with Insurance claims (Medical, Death, Motor, Travel).
-      - Guide users to "Download Centre" for forms.
-      - Maintain a professional tone. No financial advice.
-      
-      User Question: ${query}`;
-
-    const result = await model.generateContent(combinedPrompt);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    
+    const result = await model.generateContent(query);
     const response = await result.response;
     return response.text();
-  } catch (error) {
-    console.error("Gemini 2.0 Assistant Error:", error);
-    return "I'm sorry, I'm currently having connection issues. Please try again or contact us directly.";
+    
+  } catch (error: any) {
+    console.error("Gemini Detail Error:", error);
+    
+    if (error.message?.includes("404")) {
+      return "Google 报错 404：模型路径不通。这通常是 SDK 版本过旧或地区限制导致的。";
+    }
+    if (error.message?.includes("API key not valid")) {
+      return "错误：API Key 无效，请重新从 Google AI Studio 获取。";
+    }
+    return `API 报错: ${error.message}`;
   }
 }
