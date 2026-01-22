@@ -27,7 +27,7 @@ export async function askInsuranceAssistant(query: string) {
           - If the user asks about recent insurance trends or news, use Google Search grounding.
           - If user needs a form, mention it can be found in the "Download Centre".
           - Do not provide financial advice, only administrative guidance.
-        `,
+    });
        
    const result = await model.generateContent({
       contents: [{ role: 'user', parts: [{ text: query }] }],
