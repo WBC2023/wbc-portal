@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { AppSection } from './types';
 import { Layout } from './Layout';
-import { Chatbot } from './Chatbot';
 import { 
   CLAIM_REQUIREMENTS, 
   SERVICE_FORMS, 
