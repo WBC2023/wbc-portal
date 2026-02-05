@@ -2,7 +2,7 @@
 import { GoogleGenAI } from "@google/genai";
 import { COMPANY_INFO } from './constants';
 
-const ai = new GoogleGenerativeAI({ apiKey: process.env.NEXT_PUBLIC_API_KEY });
+const ai = new GoogleGenerativeAI({ apiKey: process.env.API_KEY });
 
 export async function askInsuranceAssistant(query: string) {
   try {
