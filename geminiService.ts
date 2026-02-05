@@ -9,7 +9,7 @@ const genAI = new GoogleGenerativeAI(apiKey);
 export async function askInsuranceAssistant(query: string) {
   try {
     const model = genAI.getGenerativeModel({ 
-      model: "gemini-1.5-flash",
+      model: "gemini-pro",
     });
     
 const result = await model.generateContent(query);
