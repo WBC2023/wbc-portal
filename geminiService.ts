@@ -12,9 +12,10 @@ export async function askInsuranceAssistant(query: string) {
       model: "gemini-1.5-flash",
     });
     
-      const result = await model.generateContent(query);
-    return result.response.text(); 
- } catch (error: any) {
+const result = await model.generateContent(query);
+    return result.response.text();
+  } catch (error: any) {
     console.error("Detailed Gemini Error:", error.message);
     throw error;
+  }
 }
